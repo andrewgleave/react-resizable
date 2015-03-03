@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "object-assign": "^2.0.0",
-    "react-draggable": "strml/react-draggable"
+    "react-draggable": "andrewgleave/react-draggable"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

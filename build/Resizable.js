@@ -24,17 +24,17 @@ var Resizable = module.exports = React.createClass({
     draggableOpts: React.PropTypes.object
   },
 
-  getDefaultProps: function () {
+  getDefaultProps: function getDefaultProps() {
     return {
       handleSize: [20, 20]
     };
   },
 
-  minConstraints: function () {
+  minConstraints: function minConstraints() {
     return parseConstraints(this.props.minConstraints, this.props.handleSize[0]) || this.props.handleSize;
   },
 
-  maxConstraints: function () {
+  maxConstraints: function maxConstraints() {
     return parseConstraints(this.props.maxConstraints, this.props.handleSize[1]);
   },
 
@@ -45,7 +45,7 @@ var Resizable = module.exports = React.createClass({
    * @param  {String} handlerName Handler name to wrap.
    * @return {Function}           Handler function.
    */
-  resizeHandler: function (handlerName) {
+  resizeHandler: function resizeHandler(handlerName) {
     var me = this;
     return function (e, _ref) {
       var element = _ref.element;
@@ -54,7 +54,7 @@ var Resizable = module.exports = React.createClass({
     };
   },
 
-  render: function () {
+  render: function render() {
     var p = this.props;
     // What we're doing here is getting the child of this element, and cloning it with this element's props.
     // We are then defining its children as:
@@ -62,17 +62,19 @@ var Resizable = module.exports = React.createClass({
     // A draggable handle.
 
     return cloneWithProps(p.children, assign({}, p, {
-      children: [p.children.props.children, React.createElement(Draggable, React.__spread({}, p.draggableOpts, {
-        start: { x: p.width - 20, y: p.height - 20 },
-        moveOnStartChange: true,
-        onStop: this.resizeHandler("onResizeStop"),
-        onStart: this.resizeHandler("onResizeStart"),
-        onDrag: this.resizeHandler("onResize"),
-        minConstraints: this.minConstraints(),
-        maxConstraints: this.maxConstraints()
-      }), React.createElement("span", {
-        className: "react-resizable-handle"
-      }))]
+      children: [p.children.props.children, React.createElement(
+        Draggable,
+        React.__spread({}, p.draggableOpts, {
+          start: { x: p.width - 20, y: p.height - 20 },
+          moveOnStartChange: true,
+          onStop: this.resizeHandler("onResizeStop"),
+          onStart: this.resizeHandler("onResizeStart"),
+          onDrag: this.resizeHandler("onResize"),
+          minConstraints: this.minConstraints(),
+          maxConstraints: this.maxConstraints()
+        }),
+        React.createElement("span", { className: "react-resizable-handle" })
+      )]
     }));
   }
 });
